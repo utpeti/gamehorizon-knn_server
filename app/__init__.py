@@ -1,12 +1,15 @@
 import os
-
+from dotenv import load_dotenv
 from flask import Flask
 
 
 def create_app(test_config=None):
+    load_dotenv() 
+
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
+        SECRET_KEY=os.getenv('SECRET_KEY'),
+        MAIN_SERVER_API_BASE_URL=os.getenv('MAIN_SERVER_API_BASE_URL')
     )
 
     if test_config is None:
@@ -23,7 +26,7 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
-    from . import recommendation
-    app.register_blueprint(recommendation.bp)
+    from .controllers import RecommendationController
+    app.register_blueprint(RecommendationController.bp)
 
     return app
