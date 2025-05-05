@@ -15,6 +15,7 @@ def recommend():
             return jsonify({"error": "Missing required field: games"}), 400
 
         liked_games = data.get("games", [])
+        
         if not liked_games:
             return jsonify({"error": "No liked games provided"}), 400
 
