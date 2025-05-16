@@ -46,6 +46,7 @@ def recommend():
             return jsonify({"error": "No games available for recommendation"}), 400
 
         recommended_games = getRecommendation(liked_games, all_games)
+        print(recommended_games)
         
         return recommended_games
         
